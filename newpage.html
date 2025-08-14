@@ -57,16 +57,28 @@
         100% { top: 100vh; opacity: 0; }
     }
 
-    .final-message {
-        display: none;
-        font-size: 2em;
-        animation: fadeIn 1s ease;
+    @keyframes flowerBounce {
+        0% { transform: translateY(-200px); opacity: 0; }
+        50% { transform: translateY(10px); opacity: 1; }
+        100% { transform: translateY(0); opacity: 1; }
     }
 
     .falling-flower {
         position: absolute;
         font-size: 2em;
         animation: flowerFall 5s infinite linear;
+    }
+
+    .bounce-flower {
+        position: absolute;
+        font-size: 3em;
+        animation: flowerBounce 1s ease-out;
+    }
+
+    .final-message {
+        display: none;
+        font-size: 2em;
+        animation: fadeIn 1s ease;
     }
 
     /* Mobile-Friendly Adjustments */
@@ -80,10 +92,16 @@
             max-width: 250px;
         }
     }
-
 </style>
 </head>
 <body>
+
+<!-- Welcome Message -->
+<div id="welcomeMessage" class="question">
+    <p>Hi Vaish Vush! 💖</p>
+    <p>You have a special message waiting for you, but first, you need to answer a few questions! 🎉</p>
+    <button onclick="startQuestions()">Let's Begin</button>
+</div>
 
 <!-- Question 1 -->
 <div id="q1" class="question">
@@ -116,7 +134,7 @@
 <!-- Falling Flowers Animation -->
 <script>
 let currentQ = 1;
-document.getElementById("q1").style.display = "block";
+document.getElementById("welcomeMessage").style.display = "block";
 
 // Flower Falling Effect
 function createFallingFlower() {
@@ -132,6 +150,26 @@ function createFallingFlower() {
 }
 
 setInterval(createFallingFlower, 500); // Create flowers every 500ms
+
+// Display the bounce flower when starting
+function bounceFlower() {
+    const flower = document.createElement('div');
+    flower.classList.add('bounce-flower');
+    flower.innerText = '💐';
+    flower.style.left = `${Math.random() * 100}vw`;
+    flower.style.top = '20vh'; // Start a bit lower so it doesn't disappear too soon
+    document.body.appendChild(flower);
+
+    setTimeout(() => {
+        flower.remove();
+    }, 1000); // Flower will bounce once and then disappear
+}
+
+function startQuestions() {
+    document.getElementById("welcomeMessage").style.display = "none";
+    bounceFlower(); // Show a bounce flower when starting
+    document.getElementById("q1").style.display = "block";
+}
 
 // Check Answer for Question 1
 function checkAnswer1() {
