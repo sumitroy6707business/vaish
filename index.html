@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Surprise for Vaish Vush</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(270deg, #ff9a9e, #fad0c4, #fbc2eb, #a1c4fd);
+        background-size: 800% 800%;
+        animation: gradientBG 12s ease infinite;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        min-height: 100vh;
+        overflow-x: hidden;
+    }
+    @keyframes gradientBG {
+        0% {background-position: 0% 50%;}
+        50% {background-position: 100% 50%;}
+        100% {background-position: 0% 50%;}
+    }
+    .hidden { display: none; }
+    .question, .riddle, .message {
+        margin-top: 50px;
+        font-size: 1.4rem;
+        animation: fadeIn 1.5s ease forwards;
+    }
+    @keyframes fadeIn {
+        from {opacity: 0; transform: translateY(20px);}
+        to {opacity: 1; transform: translateY(0);}
+    }
+    input {
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        margin-top: 10px;
+        font-size: 1rem;
+    }
+    button {
+        padding: 10px 20px;
+        background: #ff758c;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        cursor: pointer;
+        font-size: 1rem;
+        margin-top: 10px;
+    }
+    button:hover {
+        background: #ff4e6e;
+    }
+    /* Flower animation */
+    .flower {
+        position: fixed;
+        top: -50px;
+        font-size: 24px;
+        animation: fall linear forwards;
+        z-index: 999;
+    }
+    @keyframes fall {
+        to { transform: translateY(100vh) rotate(360deg); }
+    }
+</style>
+</head>
+<body>
+
+<h1>💖 Hey Vaish Vush 💖</h1>
+<p>Complete these fun tasks to get your special message 🌟</p>
+
+<div id="task1" class="question">
+    <p>What part of your face do I like the most? 🤔</p>
+    <input type="text" id="answer1" placeholder="Type your answer">
+    <button onclick="checkAnswer1()">Submit</button>
+    <p id="feedback1"></p>
+</div>
+
+<div id="task2" class="riddle hidden">
+    <p>Riddle: I’m always around you, but you can’t see me. I’m what you breathe to live. What am I? 🌬</p>
+    <input type="text" id="answer2" placeholder="Type your answer">
+    <button onclick="checkAnswer2()">Submit</button>
+    <p id="feedback2"></p>
+</div>
+
+<div id="finalMessage" class="hidden message">
+    💐 Vaish Vush, you are stronger than you think, more loved than you know,  
+    and your future is brighter than the sun. Keep shining! 💐
+</div>
+
+<script>
+function checkAnswer1() {
+    let ans1 = document.getElementById("answer1").value.trim().toLowerCase();
+    let feedback1 = document.getElementById("feedback1");
+    if (ans1 === "nose") {
+        feedback1.textContent = "💖 Correct! Let's go to the next challenge!";
+        document.getElementById("task2").classList.remove("hidden");
+    } else {
+        feedback1.textContent = "🙃 Chomu! Wrong answer, try again!";
+    }
+}
+
+function checkAnswer2() {
+    let ans2 = document.getElementById("answer2").value.trim().toLowerCase();
+    let feedback2 = document.getElementById("feedback2");
+    if (ans2 === "air") {
+        feedback2.textContent = "🎉 Correct! Here’s your special message!";
+        showFinalMessage();
+    } else {
+        feedback2.textContent = "🙃 Nope, try again!";
+    }
+}
+
+function showFinalMessage() {
+    document.getElementById("finalMessage").classList.remove("hidden");
+    // Create falling flowers
+    for (let i = 0; i < 20; i++) {
+        let flower = document.createElement("div");
+        flower.classList.add("flower");
+        flower.textContent = "💐";
+        flower.style.left = Math.random() * 100 + "vw";
+        flower.style.animationDuration = (Math.random() * 3 + 2) + "s";
+        document.body.appendChild(flower);
+        setTimeout(() => { flower.remove(); }, 5000);
+    }
+}
+</script>
+
+</body>
+</html>
