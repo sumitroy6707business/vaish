@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Special Surprise for Vaish Vush</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        color: white;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        transition: background 1s ease;
+    }
+    .question {
+        display: none;
+        font-size: 1.5em;
+        margin: 20px;
+        animation: fadeIn 0.5s ease;
+    }
+    input, button {
+        padding: 10px;
+        font-size: 1em;
+        margin-top: 10px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+    .yes-btn, .no-btn {
+        position: relative;
+    }
+    @keyframes fadeIn {
+        from {opacity: 0;}
+        to {opacity: 1;}
+    }
+    .final-message {
+        display: none;
+        font-size: 2em;
+        animation: fadeIn 1s ease;
+    }
+</style>
+</head>
+<body>
+
+<div id="q1" class="question">
+    <p>What part of your face do I like the most? 🤔</p>
+    <input type="text" id="answer1" placeholder="Type your answer...">
+    <br>
+    <button onclick="checkAnswer1()">Submit</button>
+</div>
+
+<div id="q2" class="question">
+    <p>I’m lighter than a feather, yet the strongest person can’t hold me for long. What am I? 🌬️</p>
+    <input type="text" id="answer2" placeholder="Type your answer...">
+    <br>
+    <button onclick="checkAnswer2()">Submit</button>
+</div>
+
+<div id="q3" class="question">
+    <p>Are you beautiful? 💖</p>
+    <button class="yes-btn" onclick="showFinal()">Yes 😍</button>
+    <button class="no-btn" id="noBtn">No 🙈</button>
+</div>
+
+<div id="final" class="final-message">
+    💐 Vaish Vush, you are stronger than you think, more beautiful than you believe, and capable of anything you set your heart to. Keep shining! 💐
+</div>
+
+<script>
+let currentQ = 1;
+document.getElementById("q1").style.display = "block";
+
+function checkAnswer1() {
+    let ans = document.getElementById("answer1").value.trim().toLowerCase();
+    if(ans === "nose") {
+        nextQuestion();
+    } else {
+        alert("Chomu 🤭 Wrong answer!");
+    }
+}
+
+function checkAnswer2() {
+    let ans = document.getElementById("answer2").value.trim().toLowerCase();
+    if(ans === "breath" || ans === "air") {
+        nextQuestion();
+    } else {
+        alert("Nope! Try again 😜");
+    }
+}
+
+function nextQuestion() {
+    document.getElementById("q" + currentQ).style.display = "none";
+    currentQ++;
+    document.getElementById("q" + currentQ).style.display = "block";
+}
+
+function showFinal() {
+    document.getElementById("q3").style.display = "none";
+    document.getElementById("final").style.display = "block";
+    document.body.style.background = "linear-gradient(135deg, #a1c4fd, #c2e9fb)";
+}
+
+// Make "No" button run away
+const noBtn = document.getElementById("noBtn");
+noBtn.addEventListener("mouseover", () => {
+    let x = Math.floor(Math.random() * (window.innerWidth - 100));
+    let y = Math.floor(Math.random() * (window.innerHeight - 50));
+    noBtn.style.position = "absolute";
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+});
+</script>
+
+</body>
+</html>
