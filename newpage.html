@@ -14,14 +14,18 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+        overflow: hidden;
+        position: relative;
         transition: background 1s ease;
     }
+
     .question {
         display: none;
         font-size: 1.5em;
         margin: 20px;
         animation: fadeIn 0.5s ease;
     }
+
     input, button {
         padding: 10px;
         font-size: 1em;
@@ -29,23 +33,59 @@
         border: none;
         border-radius: 8px;
         cursor: pointer;
+        transition: transform 0.3s ease;
+        width: 80%;
+        max-width: 300px;
     }
+
     .yes-btn, .no-btn {
         position: relative;
+        margin: 10px;
     }
+
+    .yes-btn:hover, .no-btn:hover {
+        transform: scale(1.1);
+    }
+
     @keyframes fadeIn {
-        from {opacity: 0;}
-        to {opacity: 1;}
+        from { opacity: 0; }
+        to { opacity: 1; }
     }
+
+    @keyframes flowerFall {
+        0% { top: -50px; opacity: 1; }
+        100% { top: 100vh; opacity: 0; }
+    }
+
     .final-message {
         display: none;
         font-size: 2em;
         animation: fadeIn 1s ease;
     }
+
+    .falling-flower {
+        position: absolute;
+        font-size: 2em;
+        animation: flowerFall 5s infinite linear;
+    }
+
+    /* Mobile-Friendly Adjustments */
+    @media (max-width: 600px) {
+        .question {
+            font-size: 1.2em;
+        }
+        input, button {
+            font-size: 1.2em;
+            width: 90%;
+            max-width: 250px;
+        }
+    }
+
 </style>
 </head>
 <body>
 
+<!-- Question 1 -->
 <div id="q1" class="question">
     <p>What part of your face do I like the most? 🤔</p>
     <input type="text" id="answer1" placeholder="Type your answer...">
@@ -53,6 +93,7 @@
     <button onclick="checkAnswer1()">Submit</button>
 </div>
 
+<!-- Question 2 -->
 <div id="q2" class="question">
     <p>I’m lighter than a feather, yet the strongest person can’t hold me for long. What am I? 🌬️</p>
     <input type="text" id="answer2" placeholder="Type your answer...">
@@ -60,44 +101,66 @@
     <button onclick="checkAnswer2()">Submit</button>
 </div>
 
+<!-- Question 3 -->
 <div id="q3" class="question">
     <p>Are you beautiful? 💖</p>
     <button class="yes-btn" onclick="showFinal()">Yes 😍</button>
     <button class="no-btn" id="noBtn">No 🙈</button>
 </div>
 
+<!-- Final Message -->
 <div id="final" class="final-message">
     💐 Vaish Vush, you are stronger than you think, more beautiful than you believe, and capable of anything you set your heart to. Keep shining! 💐
 </div>
 
+<!-- Falling Flowers Animation -->
 <script>
 let currentQ = 1;
 document.getElementById("q1").style.display = "block";
 
+// Flower Falling Effect
+function createFallingFlower() {
+    const flower = document.createElement('div');
+    flower.classList.add('falling-flower');
+    flower.innerText = '💐';
+    flower.style.left = `${Math.random() * 100}vw`;
+    document.body.appendChild(flower);
+
+    setTimeout(() => {
+        flower.remove();
+    }, 5000); // Flower will fall for 5 seconds
+}
+
+setInterval(createFallingFlower, 500); // Create flowers every 500ms
+
+// Check Answer for Question 1
 function checkAnswer1() {
     let ans = document.getElementById("answer1").value.trim().toLowerCase();
-    if(ans === "nose") {
+    if (ans === "nose") {
         nextQuestion();
     } else {
         alert("Chomu 🤭 Wrong answer!");
     }
 }
 
+// Check Answer for Question 2
 function checkAnswer2() {
     let ans = document.getElementById("answer2").value.trim().toLowerCase();
-    if(ans === "breath" || ans === "air") {
+    if (ans === "breath" || ans === "air") {
         nextQuestion();
     } else {
-        alert("Nope! Try again 😜");
+        alert("Chomu 🤭 Wrong answer!");
     }
 }
 
+// Proceed to next question
 function nextQuestion() {
     document.getElementById("q" + currentQ).style.display = "none";
     currentQ++;
     document.getElementById("q" + currentQ).style.display = "block";
 }
 
+// Show Final Message
 function showFinal() {
     document.getElementById("q3").style.display = "none";
     document.getElementById("final").style.display = "block";
